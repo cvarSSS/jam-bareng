@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#121316" />
+    <meta name="color-scheme" content="dark" />
+    <title>Jam Bareng</title>
+    <meta name="description" content="Game musik berdua di depan satu kamera. Satu pegang akor, satu pegang melodi. Seberapa kompak kalian?" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main id="intro">
+      <header class="hero">
+        <div class="hero-copy">
+          <h1 class="title">Jam<br />Bareng</h1>
+          <p class="lede">Game musik berdua di depan satu kamera. Satu pegang akor, satu pegang melodi. Seberapa kompak kalian?</p>
+          <p id="invite" class="invite" hidden></p>
+          <button id="start" class="btn btn-primary" type="button"><span data-icon="camera"></span>Nyalakan Kamera</button>
+          <p id="status" role="status" aria-live="polite"></p>
+          <p id="error" role="alert" hidden></p>
+        </div>
+        <figure class="preview">
+          <canvas id="preview" width="720" height="1280" aria-label="Contoh kartu hasil: kekompakan 78 persen, Duo Kompak"></canvas>
+          <figcaption>Contoh kartu hasil setelah tantangan</figcaption>
+        </figure>
+      </header>
+
+      <div class="howto">
+        <section class="card card-p1" aria-labelledby="p1-title">
+          <span class="tag tag-p1">Pemain 1 · Akor</span>
+          <h2 id="p1-title">Kiri layar, jari jadi akor</h2>
+          <ul class="chords">
+            <li><span class="glyph" data-icon="hand-1"></span><b>C</b><small>1 jari</small></li>
+            <li><span class="glyph" data-icon="hand-2"></span><b>G</b><small>2 jari</small></li>
+            <li><span class="glyph" data-icon="hand-3"></span><b>Am</b><small>3 jari</small></li>
+            <li><span class="glyph" data-icon="hand-4"></span><b>F</b><small>4 jari</small></li>
+            <li class="mute"><span class="glyph" data-icon="hand-0"></span><b>Diam</b><small>kepal</small></li>
+          </ul>
+          <p>Jempol tidak dihitung. Tahan posisi sebentar supaya akornya terbaca.</p>
+        </section>
+
+        <section class="card card-p2" aria-labelledby="p2-title">
+          <span class="tag tag-p2">Pemain 2 · Melodi</span>
+          <h2 id="p2-title">Kanan layar, telapak jadi melodi</h2>
+          <div class="melody">
+            <ol class="lanes" aria-label="Jalur nada dari atas ke bawah">
+              <li>La</li>
+              <li>Sol</li>
+              <li class="here">Mi <span class="palm" data-icon="hand-4"></span></li>
+              <li>Re</li>
+              <li>Do</li>
+            </ol>
+            <p>Buka telapak untuk bunyi, kepal untuk diam. Angkat tangan lebih tinggi untuk nada lebih tinggi.</p>
+          </div>
+        </section>
+      </div>
+
+      <p class="fine">Kamera diproses di perangkat ini saja. Tidak ada gambar yang diunggah.</p>
+    </main>
+
+    <div id="stage" hidden>
+      <div class="screen">
+        <canvas id="canvas" aria-label="Arena permainan Jam Bareng"></canvas>
+      </div>
+
+      <nav class="bar" id="controls" aria-label="Kontrol permainan">
+        <div class="seg" id="tempo" role="group" aria-label="Tempo">
+          <span class="seg-icon" data-icon="metronome"></span>
+          <button type="button" data-value="santai">Santai <small>84</small></button>
+          <button type="button" data-value="normal" aria-pressed="true">Normal <small>100</small></button>
+          <button type="button" data-value="ngebut">Ngebut <small>120</small></button>
+        </div>
+        <div class="seg" id="level" role="group" aria-label="Level">
+          <span class="seg-label">Level</span>
+          <button type="button" data-value="gampang">Gampang</button>
+          <button type="button" data-value="sedang" aria-pressed="true">Sedang</button>
+          <button type="button" data-value="susah">Susah</button>
+        </div>
+        <div class="seg" id="groove" role="group" aria-label="Groove">
+          <span class="seg-label">Groove</span>
+          <button type="button" data-value="pop" aria-pressed="true">Pop</button>
+          <button type="button" data-value="koplo">Koplo</button>
+          <button type="button" data-value="punk">Punk</button>
+          <button type="button" data-value="lofi">Lo-fi</button>
+        </div>
+        <div class="seg" id="format" role="group" aria-label="Format video">
+          <button type="button" data-value="landscape" aria-pressed="true"><span data-icon="landscape"></span>16:9</button>
+          <button type="button" data-value="vertical"><span data-icon="portrait"></span>9:16</button>
+        </div>
+        <label class="switch">
+          <input id="rec" type="checkbox" checked />
+          <span class="switch-ui" aria-hidden="true"></span>
+          Rekam otomatis
+        </label>
+        <div class="invite-chip" id="invite-chip" hidden>
+          <span id="invite-chip-text"></span>
+          <button id="drop-invite" class="btn btn-quiet" type="button">Lepas</button>
+        </div>
+        <button id="cancel-ready" class="btn btn-quiet" type="button" hidden>Batal</button>
+        <button id="challenge" class="btn btn-primary" type="button"><span data-icon="play"></span><span class="label">Mulai Tantangan</span></button>
+      </nav>
+
+      <nav class="bar" id="result-actions" aria-label="Hasil tantangan" hidden>
+        <button id="download" class="btn btn-primary" type="button"><span data-icon="download"></span><span class="label">Download video</span></button>
+        <button id="download-short" class="btn" type="button" hidden><span data-icon="download"></span>Video pendek</button>
+        <button id="save-image" class="btn" type="button"><span data-icon="image"></span>Gambar</button>
+        <button id="share" class="btn" type="button" hidden><span data-icon="share"></span>Bagikan</button>
+        <button id="copy-link" class="btn" type="button"><span data-icon="link"></span>Salin link tantangan</button>
+        <button id="again" class="btn" type="button"><span data-icon="replay"></span>Tantang lagi</button>
+        <button id="free" class="btn btn-quiet" type="button">Latihan bebas</button>
+        <p id="result-note" aria-live="polite"></p>
+      </nav>
+    </div>
+
+    <video id="video" playsinline muted autoplay></video>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
