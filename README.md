@@ -139,4 +139,11 @@ Bagian spesifikasi yang belum tegas diputuskan sebagai berikut:
 - Safari iOS merekam mp4. AudioContext dibuat saat tombol "Nyalakan Kamera" ditekan agar diizinkan iOS.
 - Alur kamera, pelacakan, penjadwal, dan perekam sudah diuji di Chrome desktop. Chrome Android dan Safari iOS belum dicoba di perangkat sungguhan, jadi cek dulu di sana sebelum dipromosikan.
 
-Lisensi font: Big Shoulders Display dan Archivo, SIL Open Font License.
+## Lisensi
+
+Kode Jam Bareng memakai [lisensi MIT](LICENSE): boleh dipakai, diubah, dan dibagikan ulang, termasuk untuk komersial, selama pemberitahuan hak cipta dan lisensinya tetap disertakan.
+
+Komponen pihak ketiga tetap memakai lisensinya masing-masing:
+
+- Font Big Shoulders Display dan Archivo: SIL Open Font License 1.1
+- MediaPipe Tasks Vision (runtime dan model pelacak tangan): Apache License 2.0
