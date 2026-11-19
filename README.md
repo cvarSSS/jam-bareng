@@ -2,6 +2,8 @@
 
 Game musik untuk dua orang di depan satu webcam, dimainkan dengan gerakan tangan. Pemain 1 (kiri layar) memegang akor lewat jumlah jari, Pemain 2 (kanan layar) memainkan melodi dengan tinggi telapak. Tantangan 16 birama mengukur seberapa kompak kalian, lalu hasilnya bisa diunduh sebagai video untuk TikTok atau Reels.
 
+**Main sekarang: https://jam-bareng.pages.dev**
+
 ![Layar pembuka](docs/screenshots/layar-pembuka.png)
 
 ## Fitur
@@ -46,19 +48,21 @@ Berguna untuk screenshot dan mengecek tampilan:
 
 Jam Bareng adalah situs statis (`npm run build` menghasilkan folder `dist`). Hosting apa pun yang memberi HTTPS bisa dipakai, karena kamera hanya jalan lewat HTTPS. Butuh Node 20.19 atau lebih baru (lihat `.nvmrc`).
 
-### Cloudflare Pages (disarankan)
+### Cloudflare Pages (yang dipakai sekarang)
 
-Tampil di akar domain (`<nama-proyek>.pages.dev`), gratis tanpa batas bandwidth, dan punya server di Jakarta.
+Situs aktif di **https://jam-bareng.pages.dev** (proyek `jam-bareng` di akun Cloudflare pemilik, diunggah langsung lewat Wrangler, tidak terhubung ke Git).
 
-1. Push folder ini ke repo GitHub atau GitLab.
-2. Di dashboard Cloudflare pilih **Workers & Pages > Create > Pages > Connect to Git**, lalu pilih repo-nya.
-3. Framework preset **Vite**, build command `npm run build`, output directory `dist`.
-4. Di **Environment variables** tambahkan `NODE_VERSION` = `22`.
-5. Save and Deploy. Setiap push berikutnya otomatis ter-deploy, dan setiap branch dapat URL preview sendiri.
+Untuk menerbitkan versi baru setelah mengubah kode:
 
-Tanpa repo juga bisa: `npm run build`, lalu `npx wrangler pages deploy dist --project-name jam-bareng`.
+```bash
+npm run deploy
+```
 
-File `public/_headers` mengatur cache panjang untuk runtime MediaPipe di Cloudflare.
+Perintah ini build ulang lalu mengunggah `dist` ke produksi. Login sekali dulu dengan `npx wrangler login` bila komputernya belum terhubung ke akun Cloudflare. Setiap deploy juga mendapat URL pratinjau sendiri, misalnya `https://<hash>.jam-bareng.pages.dev`.
+
+File `public/_headers` mengatur cache panjang untuk runtime MediaPipe.
+
+Catatan: proyek Pages yang dibuat lewat unggah langsung tidak bisa diubah jadi proyek yang terhubung ke Git. Bila nanti ingin deploy otomatis setiap push ke GitHub, buat proyek Pages baru lewat **Workers & Pages > Create > Pages > Connect to Git** (preset Vite, output `dist`, environment variable `NODE_VERSION` = `22`).
 
 ### GitHub Pages
 
